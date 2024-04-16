@@ -1,0 +1,46 @@
+---
+import "@/globals.css";
+import ImageGetter from "@/components/ImgMapGet.astro";
+import ImageCarousel from "@/components/ImageCarousel.tsx";
+import img1 from "@/assets/Luke-Miller-img1.jpg";
+import img2 from "@/assets/Nik-img2.jpg";
+import { getImage } from "astro:assets";
+
+const UnoptimizedImgArray = [
+	{ src: img1, alt: "waterfall" },
+	{ src: img2, alt: "cherry tree" },
+];
+
+const OptImg1 = await getImage({
+	src: img1,
+	format: "webp",
+	alt: "waterfall",
+});
+const OptImg2 = await getImage({
+	src: img2,
+	format: "webp",
+	alt: "cherry tree",
+});
+const ImgArrayOptimized = [OptImg1, OptImg2];
+console.log(
+	"Printing in main",
+
+	UnoptimizedImgArray
+);
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+	</head>
+	<body class="flex flex-col items-center">
+		<h1>Using the map function doesn't work</h1>
+		<ImageGetter imageArrayUnopt={UnoptimizedImgArray} />
+		<h1>Using singlar getImage functions does</h1>
+		<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} />
+	</body>
+</html>

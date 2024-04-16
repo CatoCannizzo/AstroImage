@@ -1,0 +1,23 @@
+---
+import ImageCarousel from "@/components/ImageCarousel";
+import { getImage } from "astro:assets";
+const imageArray = Astro.props.imageArrayUnopt;
+
+interface BaseImgObj {
+	src: ImageMetadata;
+	alt: string;
+}
+
+console.log("printing in comp", imageArray);
+
+const optimizedImages = await imageArray.map((image: BaseImgObj) =>
+	getImage({
+		src: image.src,
+		format: "webp",
+		alt: image.alt,
+	})
+);
+---
+
+<ImageCarousel client:visible imgArrayOpt={optimizedImages} />
+---
