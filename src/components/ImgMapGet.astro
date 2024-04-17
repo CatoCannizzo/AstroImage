@@ -8,16 +8,19 @@ interface BaseImgObj {
 	alt: string;
 }
 
-console.log("printing in comp", imageArray);
+// console.log("printing in comp", imageArray);
 
-const optimizedImages = await imageArray.map((image: BaseImgObj) =>
+const optimizedImages = await Promise.all(
+	imageArray.map( async(image: BaseImgObj) =>
 	getImage({
 		src: image.src,
 		format: "webp",
 		alt: image.alt,
 	})
-);
+));
+
+console.log("optimizedImages", optimizedImages);
 //Uncomment line 22 to break webpage
 ---
 
-<!-- <ImageCarousel client:visible imgArrayOpt={optimizedImages} /> -->
+<ImageCarousel client:visible imgArrayOpt={optimizedImages} />
