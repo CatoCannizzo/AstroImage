@@ -1,28 +1,28 @@
 ---
 import "@/globals.css";
 import MouseFollower from "@/components/MouseFollower.astro";
-// import ImageGetter from "@/components/ImgMapGet.astro";
-// import ImageCarousel from "@/components/ImageCarousel.tsx";
-// import img1 from "@/assets/Luke-Miller-img1.jpg";
-// import img2 from "@/assets/Nik-img2.jpg";
-// import { getImage } from "astro:assets";
+import ImageGetter from "@/components/ImgMapGet.astro";
+import img1 from "@/assets/Luke-Miller-img1.jpg";
+import img2 from "@/assets/Nik-img2.jpg";
+import { getImage } from "astro:assets";
+import ImageCarousel from "@/components/ImageCarousel.tsx";
 
-// const UnoptimizedImgArray = [
-// 	{ src: img1, alt: "waterfall" },
-// 	{ src: img2, alt: "cherry tree" },
-// ];
+const UnoptimizedImgArray = [
+	{ src: img1, alt: "waterfall", height: "196" },
+	{ src: img2, alt: "cherry tree" },
+];
 
-// const OptImg1 = await getImage({
-// 	src: img1,
-// 	format: "webp",
-// 	alt: "waterfall",
-// });
-// const OptImg2 = await getImage({
-// 	src: img2,
-// 	format: "webp",
-// 	alt: "cherry tree",
-// });
-// const ImgArrayOptimized = [OptImg1, OptImg2];
+const OptImg1 = await getImage({
+	src: img1,
+	format: "webp",
+	alt: "waterfall",
+});
+const OptImg2 = await getImage({
+	src: img2,
+	format: "webp",
+	alt: "cherry tree",
+});
+const ImgArrayOptimized = [OptImg1, OptImg2];
 ---
 
 <html lang="en">
@@ -34,11 +34,10 @@ import MouseFollower from "@/components/MouseFollower.astro";
 		<title>Astro</title>
 	</head>
 	<body class="flex flex-col items-center">
-		<!-- Following four lines are for the image get function -->
-		<!-- <h1>Using the map function works now!!!</h1>
+		<h1>Using the map function works now!!!</h1>
 		<ImageGetter imageArrayUnopt={UnoptimizedImgArray} />
 		<h1>Using singlar getImage functions does</h1>
-		<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} /> -->
+		<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} />
 		<MouseFollower />
 	</body>
 </html>

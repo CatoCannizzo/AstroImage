@@ -17,8 +17,6 @@ const optimizedImages = await Promise.all(
 		})
 	)
 );
-
-console.log("optimizedImages", optimizedImages);
 ---
 
 <ImageCarousel client:visible imgArrayOpt={optimizedImages} />

@@ -7,12 +7,24 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
+import type { ImgHTMLAttributes } from "react";
 
-export default function ImageCarousel(imgAObj) {
+type ImageObject = {
+  options: object;
+  src: string;
+  attributes: ImgHTMLAttributes<HTMLImageElement>;
+};
+interface Props {
+  imgArrayOpt: ImageObject[]
+}
+
+
+const ImageCarousel: React.FC<Props> =({imgArrayOpt} ) => {
+  console.log(imgArrayOpt)
   return (
     <Carousel className="w-full max-w-xs">
       <CarouselContent>
-        {imgAObj.imgArrayOpt.map((image, index) => (
+        {imgArrayOpt.map((image, index) => (
           <CarouselItem key={index}>
             <div>
               <Card>
@@ -35,3 +47,4 @@ export default function ImageCarousel(imgAObj) {
     </Carousel>
   );
 }
+export default ImageCarousel
