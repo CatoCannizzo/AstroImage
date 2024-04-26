@@ -1,19 +1,21 @@
 ---
 import { Image } from "astro:assets";
-import img1 from "@/assets/Luke-Miller-img1.jpg";
-import img2 from "@/assets/Nik-img2.jpg";
-import img3 from "@/assets/Eslie-img3.jpg";
-import img4 from "@/assets/Luke-Miller-img1.jpg";
-import img5 from "@/assets/Nik-img2.jpg";
-import img6 from "@/assets/Eslie-img3.jpg";
-import img7 from "@/assets/Luke-Miller-img1.jpg";
-import img8 from "@/assets/Nik-img2.jpg";
-import img9 from "@/assets/Eslie-img3.jpg";
+import img1 from "@/assets/TLHello.png";
+import img2 from "@/assets/TMHello.png";
+import img3 from "@/assets/TRHello.png";
+import img4 from "@/assets/MLHello.png";
+import img5 from "@/assets/MMHello.png";
+import img6 from "@/assets/MRHello.png";
+import img7 from "@/assets/BLHello.png";
+import img8 from "@/assets/DefaultHello.png";
+import img9 from "@/assets/BRHello.png";
 
 const imageArray = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 ---
 
-<div id="MouseFollower" class="relative flex max-w-48 flex-row flex-wrap">
+<div
+	id="MouseFollower"
+	class="relative flex max-w-48 m-10 flex-row flex-wrap bg-black">
 	{
 		imageArray.map((image: any, index: number) => (
 			<Image
@@ -25,32 +27,44 @@ const imageArray = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 			/>
 		))
 	}
-	<div id="iH1" class="imageHolder absolute h-16 w-16 bg-red-300/25"></div>
-	<div id="iH2" class="absolute left-16 h-16 w-16 bg-orange-300/25"></div>
-	<div id="iH3" class="absolute left-32 h-16 w-16 bg-yellow-300/25"></div>
-	<div id="iH4" class="absolute top-16 h-16 w-16 bg-green-300/25"></div>
-	<div id="iH5" class="absolute left-16 top-16 h-16 w-16 bg-blue-300/25"></div>
-	<div id="iH6" class="absolute left-32 top-16 h-16 w-16 bg-indigo-300/25">
-	</div>
-	<div id="iH7" class="absolute top-32 h-16 w-16 bg-violet-300/25"></div>
-	<div id="iH8" class="absolute left-16 top-32 h-16 w-16 bg-slate-300/25">
-	</div>
-	<div id="iH9" class="absolute left-32 top-32 h-16 w-16 bg-white/25"></div>
+	<div id="iH1" class="absolute h-16 w-16"></div>
+	<div id="iH2" class="absolute left-16 h-16 w-16"></div>
+	<div id="iH3" class="absolute left-32 h-16 w-16"></div>
+	<div id="iH4" class="absolute top-16 h-16 w-16"></div>
+	<div id="iH5" class="absolute left-16 top-16 h-16 w-16"></div>
+	<div id="iH6" class="absolute left-32 top-16 h-16 w-16"></div>
+	<div id="iH7" class="absolute top-32 h-16 w-16"></div>
+	<div id="iH8" class="absolute left-16 top-32 h-16 w-16"></div>
+	<div id="iH9" class="absolute left-32 top-32 h-16 w-16"></div>
 </div>
 
 <script>
-	const baseImage = document.getElementById("followImage8");
+	const baseImage = document.getElementById("followImage7");
 	if (baseImage instanceof HTMLImageElement) {
 		baseImage.classList.toggle("hidden");
 		baseImage.classList.toggle("Shown");
 	}
+	function back2Default() {
+		if (baseImage instanceof HTMLImageElement) {
+			const collection2 = document.querySelectorAll(".Shown");
+			collection2.forEach((element) => {
+				element.classList.toggle("hidden");
+				element.classList.toggle("Shown");
+			});
+			baseImage.classList.toggle("hidden");
+			baseImage.classList.toggle("Shown");
+		}
+	}
+
+	var timeoutHandle = window.setTimeout(() => {
+		back2Default();
+	}, 2000);
 
 	function changeImage(imgSrc: number) {
 		const collection = document.getElementsByClassName("Shown");
 		const shownImage = collection[0];
-		// console.log(`Attempting to grab image ${imgSrc}`);
 		const followImage = document.getElementById(`followImage${imgSrc}`);
-		// console.log("Shown Image:", shownImage, "Follow image:", followImage);
+		window.clearTimeout(timeoutHandle);
 		if (
 			followImage instanceof HTMLImageElement &&
 			shownImage instanceof HTMLImageElement
@@ -59,42 +73,45 @@ const imageArray = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 			shownImage.classList.toggle("Shown");
 			followImage.classList.toggle("hidden");
 			followImage.classList.toggle("Shown");
+			timeoutHandle = window.setTimeout(() => {
+				back2Default();
+			}, 2000);
 		}
 	}
 	const iH1Ele = document.getElementById("iH1");
 	if (iH1Ele instanceof HTMLDivElement) {
-		iH1Ele.addEventListener("mouseover", () => changeImage(1));
+		iH1Ele.addEventListener("mouseover", () => changeImage(0));
 	}
 	const iH2Ele = document.getElementById("iH2");
 	if (iH2Ele instanceof HTMLDivElement) {
-		iH2Ele.addEventListener("mouseover", () => changeImage(2));
+		iH2Ele.addEventListener("mouseover", () => changeImage(1));
 	}
 	const iH3Ele = document.getElementById("iH3");
 	if (iH3Ele instanceof HTMLDivElement) {
-		iH3Ele.addEventListener("mouseover", () => changeImage(3));
+		iH3Ele.addEventListener("mouseover", () => changeImage(2));
 	}
 	const iH4Ele = document.getElementById("iH4");
 	if (iH4Ele instanceof HTMLDivElement) {
-		iH4Ele.addEventListener("mouseover", () => changeImage(4));
+		iH4Ele.addEventListener("mouseover", () => changeImage(3));
 	}
 	const iH5Ele = document.getElementById("iH5");
 	if (iH5Ele instanceof HTMLDivElement) {
-		iH5Ele.addEventListener("mouseover", () => changeImage(5));
+		iH5Ele.addEventListener("mouseover", () => changeImage(4));
 	}
 	const iH6Ele = document.getElementById("iH6");
 	if (iH6Ele instanceof HTMLDivElement) {
-		iH6Ele.addEventListener("mouseover", () => changeImage(6));
+		iH6Ele.addEventListener("mouseover", () => changeImage(5));
 	}
 	const iH7Ele = document.getElementById("iH7");
 	if (iH7Ele instanceof HTMLDivElement) {
-		iH7Ele.addEventListener("mouseover", () => changeImage(7));
+		iH7Ele.addEventListener("mouseover", () => changeImage(6));
 	}
 	const iH8Ele = document.getElementById("iH8");
 	if (iH8Ele instanceof HTMLDivElement) {
-		iH8Ele.addEventListener("mouseover", () => changeImage(8));
+		iH8Ele.addEventListener("mouseover", () => changeImage(7));
 	}
 	const iH9Ele = document.getElementById("iH9");
 	if (iH9Ele instanceof HTMLDivElement) {
-		iH9Ele.addEventListener("mouseover", () => changeImage(9));
+		iH9Ele.addEventListener("mouseover", () => changeImage(8));
 	}
 </script>
