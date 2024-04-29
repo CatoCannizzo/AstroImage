@@ -1,11 +1,12 @@
 ---
-import "@/globals.css";
 import MouseFollower from "@/components/MouseFollower.astro";
 import ImageGetter from "@/components/ImgMapGet.astro";
 import img1 from "@/assets/Luke-Miller-img1.jpg";
 import img2 from "@/assets/Nik-img2.jpg";
 import { getImage } from "astro:assets";
 import ImageCarousel from "@/components/ImageCarousel.tsx";
+import ColorBackgroundCard from "@/components/ColorBackgroundCard.astro";
+import "../globals.css";
 
 const UnoptimizedImgArray = [
 	{ src: img1, alt: "waterfall", height: "196" },
@@ -33,11 +34,11 @@ const ImgArrayOptimized = [OptImg1, OptImg2];
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
-	<body class="flex flex-col items-center">
-		<h1>Using the map function works now!!!</h1>
-		<ImageGetter imageArrayUnopt={UnoptimizedImgArray} />
+	<body class="flex flex-col items-center bg-destructive">
+		<!-- <h1>Using the map function works now!!!</h1>
+		<ImageGetter imageArrayUnopt={UnoptimizedImgArray} /> -->
 		<h1>Using singlar getImage functions does</h1>
 		<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} />
-		<MouseFollower />
+		<ColorBackgroundCard> <MouseFollower /></ColorBackgroundCard>
 	</body>
 </html>
