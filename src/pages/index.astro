@@ -8,8 +8,7 @@ import ImageCarousel from "@/components/ImageCarousel.tsx";
 import ColorBackgroundCard from "@/components/ColorBackgroundCard.astro";
 import "../globals.css";
 import "glightbox/dist/css/glightbox.min.css";
-import Image from "astro/components/Image.astro";
-
+import AstroGLightbox from "../components/AstroGlightbox.astro";
 const UnoptimizedImgArray = [
 	{ src: img1, alt: "waterfall", height: "196" },
 	{ src: img2, alt: "cherry tree" },
@@ -17,9 +16,11 @@ const UnoptimizedImgArray = [
 
 const OptImg1 = await getImage({
 	src: img1,
-	widths: [512, 1024, 2048, 4096],
+	width: 100,
+	widths: [100, 500],
 	format: "webp",
 	alt: "waterfall",
+	clickZoom: true,
 });
 const OptImg2 = await getImage({
 	src: img2,
@@ -28,44 +29,6 @@ const OptImg2 = await getImage({
 });
 const ImgArrayOptimized = [OptImg1, OptImg2];
 ---
-
-<script>
-	import GLightbox from "glightbox";
-	// skin: "custom"
-	const glb = GLightbox({});
-	// document.addEventListener("astro:page-load", () => {
-	// 	// This only runs once.
-	// 	glb.reload();
-	// });
-</script>
-<style>
-	/* .image-popout {
-		display: flex;
-		flex-direction: column;
-		position: relative;
-	} */
-	.image-popout > a {
-		margin: 0;
-		cursor: zoom-in;
-		display: flex;
-	}
-	/* 
-	.image-popout figcaption {
-		font-style: italic;
-		padding: 0.5rem;
-		padding-bottom: 0.7rem;
-		display: block;
-		position: absolute;
-		bottom: 0;
-		background-color: rgba(255, 255, 255, 0.687);
-		opacity: 0;
-		transition: opacity 0.3s;
-	}
-	.image-popout:hover figcaption,
-	.image-popout:focus figcaption {
-		opacity: 1;
-	} */
-</style>
 
 <html lang="en">
 	<head>
@@ -82,99 +45,10 @@ const ImgArrayOptimized = [OptImg1, OptImg2];
 		<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} />
 		<ColorBackgroundCard> <MouseFollower /></ColorBackgroundCard>
 		<h1>Glightbox?</h1>
-		<figure class:list={["image-popout"]}>
-			<a
-				href={OptImg1.src}
-				data-description={"this is datadog description"}
-				class="glightbox"
-				><Image src={img1} alt={""} format="webp" width={300} /></a
-			>
-		</figure>
+		<AstroGLightbox
+			image={OptImg1}
+			sizes="(max-width: 600px) 100px, 500px."
+			description="this is datadog description"
+		/>
 	</body>
 </html>
-
-<!-- you can use this style tag to style the lightbox popup -->
-<!-- <style is:global>
-	.glightbox-custom .gslide-description {
-		background: #fff;
-	}
-
-	.glightbox-custom .gdesc-inner {
-		padding: 22px 20px;
-	}
-
-	.glightbox-custom .gslide-title {
-		font-size: 1em;
-		font-weight: normal;
-		font-family: arial;
-		color: #000;
-		margin-bottom: 19px;
-		line-height: 1.4em;
-	}
-
-	.glightbox-custom .gslide-desc {
-		font-size: 0.86em;
-		margin-bottom: 0;
-		font-family: arial;
-		line-height: 1.4em;
-	}
-
-	.glightbox-custom .gslide-video {
-		background: #000;
-	}
-
-	.glightbox-custom .gprev,
-	.glightbox-custom .gnext,
-	.glightbox-custom .gclose {
-		background-color: rgba(0, 0, 0, 0.75);
-		border-radius: 4px;
-	}
-
-	.glightbox-custom .gprev path,
-	.glightbox-custom .gnext path,
-	.glightbox-custom .gclose path {
-		fill: #fff;
-	}
-
-	.glightbox-custom .gprev {
-		position: absolute;
-		top: -100%;
-		left: 30px;
-		width: 40px;
-		height: 50px;
-	}
-
-	.glightbox-custom .gnext {
-		position: absolute;
-		top: -100%;
-		right: 30px;
-		width: 40px;
-		height: 50px;
-	}
-
-	.glightbox-custom .gclose {
-		width: 35px;
-		height: 35px;
-		top: 15px;
-		right: 10px;
-		position: absolute;
-	}
-
-	.glightbox-custom .gclose svg {
-		width: 18px;
-		height: auto;
-	}
-
-	.glightbox-custom .gclose:hover {
-		opacity: 1;
-	}
-	.glightbox-custom .gdesc-inner {
-		background-color: white;
-		padding: 1rem;
-
-		font-style: italic;
-	}
-	.glightbox-custom .gdesc-inner .gslide-desc {
-		font-family: var(--p-fontFamily);
-	}
-</style> -->
