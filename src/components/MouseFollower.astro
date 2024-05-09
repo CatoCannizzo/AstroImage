@@ -14,7 +14,7 @@ const imageArray = [img1, img2, img3, img4, img5, img6, img7, img8, img9];
 ---
 
 <!-- Makes a square picture and changes source when mouse hovers over a 3 by 3 subdivision of image tag -->
-<div id="MouseFollower" class="relative flex w-48 h-48 flex-row flex-wrap">
+<div id="MouseFollower" class="relative flex w-48 h-48 z-30 flex-row flex-wrap">
 	{
 		imageArray.map((image: any, index: number) => (
 			<Image
