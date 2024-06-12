@@ -1,33 +1,33 @@
 ---
 import MouseFollower from "@/components/MouseFollower.astro";
-import ImageGetter from "@/components/ImgMapGet.astro";
-import img1 from "@/assets/Luke-Miller-img1.jpg";
-import img2 from "@/assets/Nik-img2.jpg";
-import { getImage } from "astro:assets";
+import img1 from "@/assets/Lightbox/Luke-Miller-img1.jpg";
+import img2 from "@/assets/Lightbox/Nik-img2.jpg";
+import img3 from "@/assets/Lightbox/Eslie-img3.jpg";
+import { getImage, Image } from "astro:assets";
 import ImageCarousel from "@/components/ImageCarousel.tsx";
 import ColorBackgroundCard from "@/components/ColorBackgroundCard.astro";
 import "../globals.css";
-import "glightbox/dist/css/glightbox.min.css";
-import AstroGLightbox from "../components/AstroGlightbox.astro";
-const UnoptimizedImgArray = [
-	{ src: img1, alt: "waterfall", height: "196" },
-	{ src: img2, alt: "cherry tree" },
-];
 
 const OptImg1 = await getImage({
 	src: img1,
-	width: 100,
-	widths: [100, 500],
+	width: 400,
+	widths: [img1.width],
 	format: "webp",
 	alt: "waterfall",
-	clickZoom: true,
 });
 const OptImg2 = await getImage({
 	src: img2,
 	format: "webp",
+	width: 400,
 	alt: "cherry tree",
 });
-const ImgArrayOptimized = [OptImg1, OptImg2];
+const OptImg3 = await getImage({
+	src: img3,
+	format: "webp",
+	width: 400,
+	alt: "Ocean",
+});
+const ImgArrayOptimized = [OptImg3, OptImg2, OptImg1];
 ---
 
 <html lang="en">
@@ -38,17 +38,32 @@ const ImgArrayOptimized = [OptImg1, OptImg2];
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro</title>
 	</head>
-	<body class="flex flex-col items-center bg-destructive">
-		<!-- <h1>Using the map function works now!!!</h1>
-		<ImageGetter imageArrayUnopt={UnoptimizedImgArray} /> -->
-		<h1>Using singlar getImage functions does</h1>
-		<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} />
-		<ColorBackgroundCard> <MouseFollower /></ColorBackgroundCard>
-		<h1>Glightbox?</h1>
-		<AstroGLightbox
-			image={OptImg1}
-			sizes="(max-width: 600px) 100px, 500px."
-			description="this is datadog description"
-		/>
+	<body class="w-[100vw] h-[100vh]">
+		<section
+			class="flex flex-row space-x-20 items-center justify-center h-full">
+			<ImageCarousel client:visible imgArrayOpt={ImgArrayOptimized} />
+			<ColorBackgroundCard> <MouseFollower /></ColorBackgroundCard>
+			<div class="pswp-gallery w-40 h-40" id="my-gallery--individual">
+				<a
+					href={OptImg1.srcSet.values[0].url}
+					data-pswp-width={img1.width}
+					data-pswp-height={img1.height}
+					target="_blank">
+					<Image src={img1} alt="..." width={300} />
+				</a>
+			</div>
+		</section>
 	</body>
 </html>
+<script>
+	import PhotoSwipeLightbox from "photoswipe/lightbox";
+	import "photoswipe/style.css";
+
+	const lightbox = new PhotoSwipeLightbox({
+		gallery: "#my-gallery--individual",
+		children: "a",
+		pswpModule: () => import("photoswipe"),
+	});
+
+	lightbox.init();
+</script>
