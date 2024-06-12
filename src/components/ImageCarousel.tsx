@@ -21,18 +21,19 @@ interface Props {
 
 const ImageCarousel: React.FC<Props> =({imgArrayOpt} ) => {
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel className="max-w-xs md:max-w-sm ">
       <CarouselContent>
         {imgArrayOpt.map((image, index) => (
           <CarouselItem key={index}>
             <div>
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-2">
+              <Card className="bg-green-300">
+                <CardContent className="flex items-center justify-center p-2">
                   <img
                     src={image.src}
                     decoding={image.attributes.decoding}
                     loading={image.attributes.loading}
                     width={image.attributes.width}
+                    height={image.attributes.height}
                     alt={image.attributes.alt}
                   />
                 </CardContent>

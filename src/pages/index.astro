@@ -10,7 +10,7 @@ import "../globals.css";
 
 const OptImg1 = await getImage({
 	src: img1,
-	width: 400,
+	height: 450,
 	widths: [img1.width],
 	format: "webp",
 	alt: "waterfall",
@@ -18,13 +18,13 @@ const OptImg1 = await getImage({
 const OptImg2 = await getImage({
 	src: img2,
 	format: "webp",
-	width: 400,
+	height: 450,
 	alt: "cherry tree",
 });
 const OptImg3 = await getImage({
 	src: img3,
 	format: "webp",
-	width: 400,
+	height: 450,
 	alt: "Ocean",
 });
 const ImgArrayOptimized = [OptImg3, OptImg2, OptImg1];
@@ -45,6 +45,7 @@ const ImgArrayOptimized = [OptImg3, OptImg2, OptImg1];
 			<ColorBackgroundCard> <MouseFollower /></ColorBackgroundCard>
 			<div class="pswp-gallery w-40 h-40" id="my-gallery--individual">
 				<a
+					class="cursor-zoom-in"
 					href={OptImg1.srcSet.values[0].url}
 					data-pswp-width={img1.width}
 					data-pswp-height={img1.height}
